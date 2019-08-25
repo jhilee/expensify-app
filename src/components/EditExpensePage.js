@@ -4,7 +4,7 @@ import ExpenseForm from './ExpenseForm';
 import { startEditExpense, startRemoveExpense } from '../actions/expenses';
 
 export class EditExpensePage extends React.Component {
-    
+
     onSubmit = (expense) => {
         this.props.startEditExpense(this.props.expense.id, expense);
         this.props.history.push('/');
@@ -16,11 +16,18 @@ export class EditExpensePage extends React.Component {
     render() {
         return (
             <div>
+                <div className="page-header">
+                    <div className="content-container">
+                    <h1 className="page-header__title">Edit Expense</h1>
+                    </div>
+                </div>
+                <div className="content-container">
                 <ExpenseForm
                     expense={this.props.expense}
                     onSubmit={this.onSubmit}
                 />
-                <button onClick={this.onRemove}> Remove </button>
+                <button className="button button--remove" onClick={this.onRemove}> Remove Expense</button>
+            </div>
             </div>
         );
     }
@@ -28,11 +35,11 @@ export class EditExpensePage extends React.Component {
 
 const mapStateProps = (state, props) => ({
     expense: state.expenses.find((expense) => expense.id === props.match.params.id)
-  });
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
     startEditExpense: (id, expense) => dispatch(startEditExpense(id, expense)),
     startRemoveExpense: (data) => dispatch(startRemoveExpense(data))
 });
 
-export default connect(mapStateProps,mapDispatchToProps)(EditExpensePage);
+export default connect(mapStateProps, mapDispatchToProps)(EditExpensePage);
